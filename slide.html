@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <title> sjisbmoc </title>
+<script type="text/javascript">
+var imgAry = new Array();
+var urlAry = [];
+
+// ���� �̹����� �⺻ �̹����� ū���� ����Ͻø� �̹����� ���� �����մϴ�.
+// ���� �̹����� ���� �̹��� �Դϴ�.
+imgAry.push('./img/1.png');
+imgAry.push('./img/2.png');
+imgAry.push('./img/3.png');
+
+urlAry.push("http://cyphers.nexon.com/cyphers/pages/events/201806/package");
+urlAry.push("http://cyphers.nexon.com/cyphers/pages/events/201805/cos2");
+urlAry.push("http://cyphers.nexon.com/cyphers/pages/events/7th/1");
+
+var cur = 0;
+
+
+// ���콺 ������= ���콺�� ����������
+// �ڹٽ�ũ��Ʈ�� ����Ǿ� �̹����� �ٲ�� �˴ϴ�.
+function fncChgImg(obj, pos)
+{
+    cur = pos;
+    for (var i = 0; i < imgAry.length; i++)
+    {
+        var cig = document.getElementById('img' + i);
+        if (i == pos)
+        {
+            var obj = document.getElementById('rotate');
+            if(document.all)
+            {
+                obj.filters.blendTrans.stop();
+                obj.filters.blendTrans.Apply();
+                obj.src = imgAry[pos];
+                obj.filters.blendTrans.Play();
+            }
+            else
+            {
+                obj.src = imgAry[pos];
+            }
+            obj.onclick = function() {
+              window.open('about:blank').location = urlAry[pos];
+            }
+
+            cig.src = cig.src.replace('_off', '_on');
+        }
+        else
+        {
+            cig.src = cig.src.replace('_on', '_off');
+        }
+    }
+}
+
+
+window.onload = function()
+{
+    setTimeout(setImg, 1000);
+}
+ 
+
+
+function setImg()
+{
+    cur++;
+    if (cur >= imgAry.length) cur = 0;
+    var obj = document.getElementById('img' + cur);
+    fncChgImg(obj, cur)
+    // �ð��� �����ش�~ 1000 1�� 3000 3��
+    setTimeout(setImg, 3500);
+}
+</script>
+</head>
+<body>
+    <!--���� �̹����� ������ �κ�-->
+    <img id='rotate' src='./img/1.jpg' style='filter:blendTrans(duration=1);'>
+    <!-- �̹��� ������ ���� ��ġ ������ -->
+    <div style='position: absolute; left: 650px; top: 290px;'>
+        <!--�̹��� ��ư�� 3��   ���⿡�� ��ư���� ������ �ָ� �˴ϴ�.-->
+        <img id='img0' src='./img/button1_on.jpg' onmouseover='fncChgImg(this,0);'>
+        <img id='img1' src='./img/button2_off.jpg' onmouseover='fncChgImg(this,1);'>
+        <img id='img2' src='./img/button3_off.jpg' onmouseover='fncChgImg(this,2);'>
+        </div>
+</body>
+</html>
